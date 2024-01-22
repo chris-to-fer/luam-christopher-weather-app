@@ -8,7 +8,7 @@ export default function Form({ onAddActivity }) {
       name: data.name,
       isForGoodWeather: e.target.isForGoodWeather.checked,
     };
-    console.log(newActivity);
+
     e.target.reset();
     onAddActivity(newActivity);
   }
