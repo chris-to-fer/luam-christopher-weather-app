@@ -1,6 +1,6 @@
 import "./List.css";
-export default function List({ activities, isGoodWeather }) {
-  console.log(activities);
+export default function List({ activities, isGoodWeather, goodActivities }) {
+  console.log("state weather ", isGoodWeather);
   return (
     <>
       <h2>
@@ -9,11 +9,17 @@ export default function List({ activities, isGoodWeather }) {
           : "Bad weather outside! Here's what you can do now:"}
       </h2>
       <ul className="list">
-        {activities.map((activity) => (
-          <li key={activity.id} className="activity">
-            {activity.name}
-          </li>
-        ))}
+        {isGoodWeather
+          ? activities.map((activity) => (
+              <li key={activity.id} className="activity">
+                {activity.name}
+              </li>
+            ))
+          : goodActivities.map((activity) => (
+              <li key={activity.id} className="activity">
+                {activity.name}
+              </li>
+            ))}
       </ul>
     </>
   );
