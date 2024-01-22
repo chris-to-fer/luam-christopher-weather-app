@@ -1,13 +1,14 @@
 li {
+  display: flex;
   list-style-type: none;
   background-color: aliceblue;
+  padding: 15px;
 }
 
 .list {
   display: flex;
   flex-direction: column;
 
-  justify-content: flex-start;
-
   gap: 15px;
+  padding-inline-start: 0px;
 }
