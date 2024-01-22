@@ -2,3 +2,8 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+}
