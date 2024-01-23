@@ -1,6 +1,6 @@
 import "./List.css";
 export default function List({
-  isLoading,
+  // isLoading,
   activities,
   isGoodWeather,
   filteredActivities,
@@ -24,15 +24,15 @@ export default function List({
 
   return (
     <>
-      {isLoading === "start" ? (
+      {/* {isLoading === "start" ? (
         ""
-      ) : (
-        <h2>
-          {isGoodWeather === true
-            ? "The weather is awesome! Go outside and:"
-            : "Bad weather outside! Here's what you can do now:"}
-        </h2>
-      )}
+      ) : ( */}
+      <h2>
+        {isGoodWeather === true
+          ? "The weather is awesome! Go outside and:"
+          : "Bad weather outside! Here's what you can do now:"}
+      </h2>
+      {/* // )} */}
       <ul className="activity-container">{listItems}</ul>
     </>
   );
