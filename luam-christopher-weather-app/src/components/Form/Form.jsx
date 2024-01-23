@@ -18,7 +18,7 @@ export default function Form({ onAddActivity }) {
         <h2>Add new Activity:</h2>
         <section className="name-container">
           <label htmlFor="name">Name:</label>
-          <input className="name" type="text" id="name" name="name" />
+          <input className="name" type="text" id="name" name="name" required />
         </section>
         <section className="checkbox-container">
           <label htmlFor="checkbox">Good-weather activity:</label>

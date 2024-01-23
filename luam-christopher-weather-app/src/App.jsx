@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
-import Form from "./Form/Form";
 import { uid } from "uid";
+import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import List from "./List/List";
+
 import Deleted from "./Deleted/Deleted";
+
+import List from "./components/List/List";
+import Form from "./components/Form/Form";
 
 import "./App.css";
 
@@ -17,7 +19,6 @@ function App() {
   const [weather, setWeather] = useState("");
   const [condition, setCondition] = useState("");
   const [temperature, setTemperature] = useState("");
-  const [loading, setLoading] = useState("start");
 
   const url = "https://example-apis.vercel.app/api/weather";
 
@@ -25,19 +26,16 @@ function App() {
     async function getWeather() {
       try {
         const response = await fetch(url);
-
         const data = await response.json();
-        setLoading("done");
         setWeather(data.isGoodWeather);
         setCondition(data.condition);
         setTemperature(data.temperature);
-        // console.clear();
+        console.clear();
         console.log("url fetch ", data);
       } catch (error) {
         console.log(error);
       }
     }
-
     getWeather();
     const interval = setInterval(() => {
       getWeather();
@@ -46,6 +44,11 @@ function App() {
   }, []);
 
   const isGoodWeather = weather;
+
+  useEffect(() => {
+    document.body.classList.toggle("good-weather", isGoodWeather);
+    document.body.classList.toggle("bad-weather", !isGoodWeather);
+  }, [isGoodWeather]);
 
   const filteredActivities = activities.filter(
     (a) => a.isForGoodWeather === isGoodWeather
@@ -77,7 +80,6 @@ function App() {
         </header>
 
         <List
-          isLoading={loading}
           isGoodWeather={isGoodWeather}
           activities={activities}
           filteredActivities={filteredActivities}
