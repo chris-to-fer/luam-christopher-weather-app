@@ -1,7 +1,10 @@
 li {
-  width: 60vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
   list-style-type: none;
-  background-color: aliceblue;
+
   text-align: left;
   padding: 15px;
 }
@@ -15,7 +18,7 @@ li {
   display: flex;
   flex-direction: column;
 
-  justify-content: flex-start;
+  justify-content: space-between;
   padding-inline-start: 0px;
   gap: 15px;
 }

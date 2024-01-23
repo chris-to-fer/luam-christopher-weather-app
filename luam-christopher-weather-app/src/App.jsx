@@ -12,7 +12,8 @@ function App() {
   });
   const [weather, setWeather] = useState("");
   const [condition, setCondition] = useState("");
-  const [temperature, setTemperature] = useState(0);
+  const [temperature, setTemperature] = useState("");
+  const [loading, setLoading] = useState("start");
 
   const url = "https://example-apis.vercel.app/api/weather";
 
@@ -23,6 +24,7 @@ function App() {
           const response = await fetch(url);
 
           const data = await response.json();
+          setLoading("done");
           setWeather(data.isGoodWeather);
           setCondition(data.condition);
           setTemperature(data.temperature);
@@ -54,11 +56,16 @@ function App() {
   return (
     <>
       <main>
-        <header>
-          <h1>{condition}</h1>
-          <h1>{temperature}</h1>
-        </header>
+        {loading === "start" ? (
+          <h1> No weather yet... 😿</h1>
+        ) : (
+          <header>
+            <h1>{condition}</h1>
+            <h1>{temperature}</h1>
+          </header>
+        )}
         <List
+          isLoading={loading}
           isGoodWeather={isGoodWeather}
           activities={activities}
           filteredActivities={filteredActivities}
