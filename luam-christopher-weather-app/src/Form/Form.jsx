@@ -18,11 +18,16 @@ export default function Form({ onAddActivity }) {
         <h2>Add new Activity:</h2>
         <section className="name-container">
           <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" />
+          <input className="name" type="text" id="name" name="name" />
         </section>
         <section className="checkbox-container">
           <label htmlFor="checkbox">Good-weather activity:</label>
-          <input type="checkbox" id="checkbox" name="isForGoodWeather" />
+          <input
+            className="check"
+            type="checkbox"
+            id="checkbox"
+            name="isForGoodWeather"
+          />
         </section>
         <button type="submit" className="submit-button">
           Submit

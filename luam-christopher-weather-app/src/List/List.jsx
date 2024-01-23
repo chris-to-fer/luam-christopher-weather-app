@@ -7,15 +7,17 @@ export default function List({
 }) {
   const listItems = filteredActivities?.map((activity) => (
     <article key={activity.id} className="activity">
-      <li className="activity-item">{activity.name}</li>
-      <button
-        className="delete-button"
-        onClick={() => {
-          onDeleteActivity(activity.id);
-        }}
-      >
-        x
-      </button>
+      <li className="activity-item">
+        {activity.name}
+        <button
+          className="delete-button"
+          onClick={() => {
+            onDeleteActivity(activity.id);
+          }}
+        >
+          x
+        </button>
+      </li>
     </article>
   ));
 
