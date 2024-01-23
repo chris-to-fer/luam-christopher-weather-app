@@ -20,11 +20,11 @@ function App() {
     async function getWeather() {
       try {
         const response = await fetch(url);
-
         const data = await response.json();
         setWeather(data.isGoodWeather);
         setCondition(data.condition);
         setTemperature(data.temperature);
+        console.clear();
         console.log("url fetch ", data);
       } catch (error) {
         console.log(error);
@@ -35,7 +35,7 @@ function App() {
       getWeather();
       return () => clearInterval(interval);
     }, 5000);
-  }, [activities]);
+  }, []); //activities
 
   const isGoodWeather = weather;
 
