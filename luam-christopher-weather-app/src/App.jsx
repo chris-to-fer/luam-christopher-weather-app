@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
-import Form from "./Form/Form";
 import { uid } from "uid";
+import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
-import List from "./List/List";
+import List from "./components/List/List";
+import Form from "./components/Form/Form";
 
 import "./App.css";
 
