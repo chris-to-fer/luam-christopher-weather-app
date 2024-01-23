@@ -3,12 +3,8 @@ form {
   flex-direction: column;
 }
 
-.checkbox-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: ;
-  padding-bottom: 20px;
+h2 {
+  text-align: left;
 }
 
 .name-container {
@@ -19,16 +15,22 @@ form {
   gap: 5%;
 }
 
-h2 {
-  text-align: left;
+label {
+  padding: 10px;
 }
+
 input {
   padding: 10px;
   width: 40vw;
 }
-label {
-  padding: 10px;
+
+.checkbox-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 40px;
 }
+
 @media only screen and (max-width: 600px) {
   input {
     width: 20vw;
