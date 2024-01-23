@@ -39,6 +39,11 @@ function App() {
 
   const isGoodWeather = weather;
 
+  useEffect(() => {
+    document.body.classList.toggle('good-weather', isGoodWeather);
+    document.body.classList.toggle('bad-weather', !isGoodWeather);
+  }, [isGoodWeather]);
+
   const filteredActivities = activities.filter(
     (a) => a.isForGoodWeather === isGoodWeather
   );
