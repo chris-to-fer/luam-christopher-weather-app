@@ -10,28 +10,30 @@ function App() {
   const [activities, setActivities] = useLocalStorageState("activities", {
     defaultValue: [],
   });
-  const [weather, setWeather] = useState(true);
-  const isGoodWeather = weather;
+  const [weather, setWeather] = useState("");
+
   const url = "https://example-apis.vercel.app/api/weather";
 
   useEffect(() => {
     async function getWeather() {
       try {
         const response = await fetch(url);
-        console.log("response status", response.status);
+
         const data = await response.json();
-        console.log(data);
+        setWeather(data.isGoodWeather);
+        console.log("url fetch ", data);
       } catch (error) {
         console.log(error);
       }
     }
     getWeather();
   }, []);
+  const isGoodWeather = weather;
 
-  const goodActivities = activities.filter(
+  const filteredActivities = activities.filter(
     (a) => a.isForGoodWeather === isGoodWeather
   );
-  console.log("GA ", goodActivities);
+  console.log("iGW ", isGoodWeather);
 
   function handleAddActivity(newActivity) {
     setActivities([{ id: uid(), ...newActivity }, ...activities]);
@@ -43,7 +45,7 @@ function App() {
         <List
           isGoodWeather={isGoodWeather}
           activities={activities}
-          goodActivities={goodActivities}
+          filteredActivities={filteredActivities}
         />
         <Form onAddActivity={handleAddActivity} />
       </main>

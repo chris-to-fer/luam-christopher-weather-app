@@ -6,4 +6,17 @@ form {
 .checkbox-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.name-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+h2 {
+  text-align: left;
 }

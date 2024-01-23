@@ -8,7 +8,7 @@ export default function Form({ onAddActivity }) {
       name: data.name,
       isForGoodWeather: e.target.isForGoodWeather.checked,
     };
-    console.log(newActivity);
+
     e.target.reset();
     onAddActivity(newActivity);
   }
@@ -16,8 +16,10 @@ export default function Form({ onAddActivity }) {
     <>
       <form className="form" onSubmit={handleSubmit}>
         <h2>Add new Activity:</h2>
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" />
+        <section className="name-container">
+          <label htmlFor="name">Name:</label>
+          <input type="text" id="name" name="name" />
+        </section>
         <section className="checkbox-container">
           <label htmlFor="checkbox">Good-weather activity:</label>
           <input type="checkbox" id="checkbox" name="isForGoodWeather" />
