@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
 import Deleted from "./Deleted/Deleted";
-
+import Location from "./components/Location/Location";
 import List from "./components/List/List";
 import Form from "./components/Form/Form";
 
 import "./App.css";
 
 function App() {
+  //Hooks
   const [deleted, setDeleted] = useLocalStorageState("deleted", {
     defaultValue: [],
   });
@@ -17,31 +18,57 @@ function App() {
     defaultValue: [],
   });
   const [weather, setWeather] = useState("");
+  const [location, setLocation] = useState("europe");
   const [condition, setCondition] = useState("");
   const [temperature, setTemperature] = useState("");
 
-  const url = "https://example-apis.vercel.app/api/weather";
+  // const baseUrl = "https://example-apis.vercel.app/api/weather";
+  // let url = `${baseUrl}/${location}`;
 
+  // const url =
+  //   location === "europe"
+  //     ? "https://example-apis.vercel.app/api/weather"
+  //     : `https://example-apis.vercel.app/api/weather/${location}`;
+
+  console.log("url ", url);
+
+  //Fetch data
   useEffect(() => {
     async function getWeather() {
       try {
-        const response = await fetch(url);
+        let apiUrl = "https://example-apis.vercel.app/api/weather";
+        if (location !== "europe") {
+          apiUrl += `/${location}`;
+        }
+
+        const response = await fetch(apiUrl);
         const data = await response.json();
-        setWeather(data.isGoodWeather);
-        setCondition(data.condition);
-        setTemperature(data.temperature);
-        console.clear();
-        console.log("url fetch ", data);
+        // Check if the fetched data has a location key
+        if ("location" in data) {
+          setWeather(data.isGoodWeather);
+          setCondition(data.condition);
+          setTemperature(data.temperature);
+          console.log("url fetch ", data);
+        } else {
+          console.error("Invalid data format:", data);
+        }
       } catch (error) {
         console.log(error);
       }
     }
+
     getWeather();
+
+    //Set fetch interval
     const interval = setInterval(() => {
       getWeather();
-      return () => clearInterval(interval);
     }, 5000);
-  }, []);
+
+    //Clear interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
+  }, [location]);
 
   const isGoodWeather = weather;
 
@@ -53,6 +80,12 @@ function App() {
   const filteredActivities = activities.filter(
     (a) => a.isForGoodWeather === isGoodWeather
   );
+
+  // functions
+  function handleLocationChange(e) {
+    const selectedLocation = e.target.value;
+    setLocation(selectedLocation);
+  }
 
   function handleAddActivity(newActivity) {
     setActivities([{ id: uid(), ...newActivity }, ...activities]);
@@ -69,16 +102,15 @@ function App() {
     setDeleted(deleted.filter((a) => a.id !== id));
   }
 
-  console.log("acti ", activities);
-  console.log("deleted ", deleted);
+  // render
   return (
     <>
       <main>
+        <Location location={location} onLocationChange={handleLocationChange} />
         <header>
           <h1>{condition}</h1>
           <h1>{temperature}</h1>
         </header>
-
         <List
           isGoodWeather={isGoodWeather}
           activities={activities}
