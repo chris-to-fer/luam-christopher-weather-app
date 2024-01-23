@@ -4,8 +4,12 @@ import "./Deleted.css";
 import { useState } from "react";
 export default function Deleted({ deleted, onRestoreActivity }) {
   const [reveal, setReveal] = useState(false);
+
   function handleReveal() {
     setReveal(!reveal);
+    setTimeout(() => {
+      reveal ? window.scrollBy(0, -50) : window.scrollBy(0, +500);
+    }, 10);
   }
   const items = deleted?.map((e) => (
     <article key={e.id} className="activity">
