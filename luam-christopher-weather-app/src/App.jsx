@@ -17,20 +17,24 @@ function App() {
   const url = "https://example-apis.vercel.app/api/weather";
 
   useEffect(() => {
-    async function getWeather() {
-      try {
-        const response = await fetch(url);
+    const interval = setInterval(() => {
+      async function getWeather() {
+        try {
+          const response = await fetch(url);
 
-        const data = await response.json();
-        setWeather(data.isGoodWeather);
-        setCondition(data.condition);
-        setTemperature(data.temperature);
-        console.log("url fetch ", data);
-      } catch (error) {
-        console.log(error);
+          const data = await response.json();
+          setWeather(data.isGoodWeather);
+          setCondition(data.condition);
+          setTemperature(data.temperature);
+          console.log("url fetch ", data);
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
-    getWeather();
+
+      getWeather();
+      return () => clearInterval(interval);
+    }, 5000);
   }, [activities]);
   const isGoodWeather = weather;
 
