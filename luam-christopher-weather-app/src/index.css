@@ -38,7 +38,7 @@ h1 {
 
 li {
   color: #ffff;
-  background-color: #213547;
+  background-color: rgba(33, 53, 71, 0.6); /* #213547 */
 }
 
 button {
@@ -69,6 +69,14 @@ button:focus-visible {
   padding: 12px;
 }
 
+.revealButton {
+  margin-top: 40px;
+  border-width: 2px;
+  background-color: #213547;
+  padding: 15px;
+  width: 20%;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -81,12 +89,19 @@ button:focus-visible {
     /* background-color: #f9f9f9;
   } */
   li {
-    color: #213547;
-    background-color: #e4dfdf;
+    color: #1e2f3e;
+    background-color: rgba(228, 223, 223, 0.6); /* #e4dfdf; */
   }
   .submit-button {
     border-width: 2px;
     background-color: #e4dfdf;
     padding: 12px;
+  }
+  .revealButton {
+    margin-top: 40px;
+    border-width: 2px;
+    background-color: #e4dfdf;
+    padding: 15px;
+    width: 20%;
   }
 }

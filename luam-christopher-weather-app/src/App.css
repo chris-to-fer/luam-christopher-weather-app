@@ -9,10 +9,23 @@ main {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  transition: background-image 0.5s ease-in-out; 
 }
 
 header {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.good-weather {
+  background-image: url("./assets/goodWeather.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.bad-weather {
+  background-image: url("./assets/badWeather.jpg");
+  background-size: cover;
+  background-position: center;
 }
