@@ -3,10 +3,14 @@ import Form from "./Form/Form";
 import { uid } from "uid";
 import useLocalStorageState from "use-local-storage-state";
 import List from "./List/List";
+import Deleted from "./Deleted/Deleted";
 
 import "./App.css";
 
 function App() {
+  const [deleted, setDeleted] = useLocalStorageState("deleted", {
+    defaultValue: [],
+  });
   const [activities, setActivities] = useLocalStorageState("activities", {
     defaultValue: [],
   });
@@ -18,52 +22,60 @@ function App() {
   const url = "https://example-apis.vercel.app/api/weather";
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      async function getWeather() {
-        try {
-          const response = await fetch(url);
+    async function getWeather() {
+      try {
+        const response = await fetch(url);
 
-          const data = await response.json();
-          setLoading("done");
-          setWeather(data.isGoodWeather);
-          setCondition(data.condition);
-          setTemperature(data.temperature);
-          console.log("url fetch ", data);
-        } catch (error) {
-          console.log(error);
-        }
+        const data = await response.json();
+        setLoading("done");
+        setWeather(data.isGoodWeather);
+        setCondition(data.condition);
+        setTemperature(data.temperature);
+        // console.clear();
+        console.log("url fetch ", data);
+      } catch (error) {
+        console.log(error);
       }
+    }
 
+    getWeather();
+    const interval = setInterval(() => {
       getWeather();
       return () => clearInterval(interval);
     }, 5000);
-  }, [activities]);
+  }, []);
+
   const isGoodWeather = weather;
 
   const filteredActivities = activities.filter(
     (a) => a.isForGoodWeather === isGoodWeather
   );
-  console.log("iGW ", isGoodWeather);
 
   function handleAddActivity(newActivity) {
     setActivities([{ id: uid(), ...newActivity }, ...activities]);
   }
 
   function handleDeleteActivity(id) {
+    setDeleted([...deleted, ...activities.filter((e) => e.id === id)]);
+    console.log("deleted ", deleted);
     setActivities(activities.filter((a) => a.id !== id));
   }
 
+  function handleRestoreActivity(id) {
+    setActivities([...activities, ...deleted.filter((a) => a.id === id)]);
+    setDeleted(deleted.filter((a) => a.id !== id));
+  }
+
+  console.log("acti ", activities);
+  console.log("deleted ", deleted);
   return (
     <>
       <main>
-        {loading === "start" ? (
-          <h1> No weather yet... 😿</h1>
-        ) : (
-          <header>
-            <h1>{condition}</h1>
-            <h1>{temperature}</h1>
-          </header>
-        )}
+        <header>
+          <h1>{condition}</h1>
+          <h1>{temperature}</h1>
+        </header>
+
         <List
           isLoading={loading}
           isGoodWeather={isGoodWeather}
@@ -72,6 +84,7 @@ function App() {
           onDeleteActivity={handleDeleteActivity}
         />
         <Form onAddActivity={handleAddActivity} />
+        <Deleted deleted={deleted} onRestoreActivity={handleRestoreActivity} />
       </main>
     </>
   );
