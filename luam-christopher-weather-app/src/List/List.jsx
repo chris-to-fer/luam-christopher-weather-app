@@ -3,7 +3,22 @@ export default function List({
   activities,
   isGoodWeather,
   filteredActivities,
+  onDeleteActivity,
 }) {
+  const listItems = filteredActivities?.map((activity) => (
+    <article key={activity.id} className="activity">
+      <li className="activity-item">{activity.name}</li>
+      <button
+        className="delete-button"
+        onClick={() => {
+          onDeleteActivity(activity.id);
+        }}
+      >
+        x
+      </button>
+    </article>
+  ));
+
   return (
     <>
       <h2>
@@ -11,19 +26,7 @@ export default function List({
           ? "The weather is awesome! Go outside and:"
           : "Bad weather outside! Here's what you can do now:"}
       </h2>
-      <ul className="list">
-        {isGoodWeather
-          ? filteredActivities?.map((activity) => (
-              <li key={activity.id} className="activity">
-                {activity.name}
-              </li>
-            ))
-          : filteredActivities?.map((activity) => (
-              <li key={activity.id} className="activity">
-                {activity.name}
-              </li>
-            ))}
-      </ul>
+      <ul className="activity-container">{listItems}</ul>
     </>
   );
 }

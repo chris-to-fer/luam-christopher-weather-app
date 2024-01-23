@@ -1,11 +1,17 @@
 li {
+  width: 60vw;
   list-style-type: none;
   background-color: aliceblue;
   text-align: left;
   padding: 15px;
 }
 
-.list {
+.activity {
+  display: flex;
+  flex-direction: row;
+}
+
+.activity-container {
   display: flex;
   flex-direction: column;
 
