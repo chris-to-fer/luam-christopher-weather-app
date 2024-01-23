@@ -1,12 +1,18 @@
 import { uid } from "uid";
 import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
+
+import Deleted from "./Deleted/Deleted";
+
 import List from "./components/List/List";
 import Form from "./components/Form/Form";
 
 import "./App.css";
 
 function App() {
+  const [deleted, setDeleted] = useLocalStorageState("deleted", {
+    defaultValue: [],
+  });
   const [activities, setActivities] = useLocalStorageState("activities", {
     defaultValue: [],
   });
@@ -35,28 +41,36 @@ function App() {
       getWeather();
       return () => clearInterval(interval);
     }, 5000);
-  }, []); //activities
+  }, []);
 
   const isGoodWeather = weather;
 
   useEffect(() => {
-    document.body.classList.toggle('good-weather', isGoodWeather);
-    document.body.classList.toggle('bad-weather', !isGoodWeather);
+    document.body.classList.toggle("good-weather", isGoodWeather);
+    document.body.classList.toggle("bad-weather", !isGoodWeather);
   }, [isGoodWeather]);
 
   const filteredActivities = activities.filter(
     (a) => a.isForGoodWeather === isGoodWeather
   );
-  console.log("iGW ", isGoodWeather);
 
   function handleAddActivity(newActivity) {
     setActivities([{ id: uid(), ...newActivity }, ...activities]);
   }
 
   function handleDeleteActivity(id) {
+    setDeleted([...deleted, ...activities.filter((e) => e.id === id)]);
+    console.log("deleted ", deleted);
     setActivities(activities.filter((a) => a.id !== id));
   }
 
+  function handleRestoreActivity(id) {
+    setActivities([...activities, ...deleted.filter((a) => a.id === id)]);
+    setDeleted(deleted.filter((a) => a.id !== id));
+  }
+
+  console.log("acti ", activities);
+  console.log("deleted ", deleted);
   return (
     <>
       <main>
@@ -64,6 +78,7 @@ function App() {
           <h1>{condition}</h1>
           <h1>{temperature}</h1>
         </header>
+
         <List
           isGoodWeather={isGoodWeather}
           activities={activities}
@@ -71,6 +86,7 @@ function App() {
           onDeleteActivity={handleDeleteActivity}
         />
         <Form onAddActivity={handleAddActivity} />
+        <Deleted deleted={deleted} onRestoreActivity={handleRestoreActivity} />
       </main>
     </>
   );
