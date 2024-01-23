@@ -30,8 +30,6 @@ function App() {
   //     ? "https://example-apis.vercel.app/api/weather"
   //     : `https://example-apis.vercel.app/api/weather/${location}`;
 
-  console.log("url ", url);
-
   //Fetch data
   useEffect(() => {
     async function getWeather() {
@@ -43,20 +41,18 @@ function App() {
 
         const response = await fetch(apiUrl);
         const data = await response.json();
-        // Check if the fetched data has a location key
-        if ("location" in data) {
-          setWeather(data.isGoodWeather);
-          setCondition(data.condition);
-          setTemperature(data.temperature);
-          console.log("url fetch ", data);
-        } else {
-          console.error("Invalid data format:", data);
-        }
+
+        setWeather(data.isGoodWeather);
+        setCondition(data.condition);
+        setTemperature(data.temperature);
+
+        // check fetch url and data
+        console.log("url ", apiUrl);
+        console.log("data ", data);
       } catch (error) {
         console.log(error);
       }
     }
-
     getWeather();
 
     //Set fetch interval
