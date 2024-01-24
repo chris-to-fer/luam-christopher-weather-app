@@ -2,7 +2,7 @@ import React from "react";
 import "./Deleted.css";
 
 import { useState } from "react";
-export default function Deleted({ deleted, onRestoreActivity }) {
+export default function Deleted({ deleted, onRestoreActivity, onFinalDelete }) {
   const [reveal, setReveal] = useState(false);
 
   function handleReveal() {
@@ -15,14 +15,27 @@ export default function Deleted({ deleted, onRestoreActivity }) {
     <article key={e.id} className="activity">
       <li className="activity-item">
         {e.name}
-        <button
-          className="delete-button"
-          onClick={() => {
-            onRestoreActivity(e.id);
-          }}
-        >
-          +
-        </button>
+        <section className="kill">
+          <button
+            alt="restore"
+            className="tooltip"
+            onClick={() => {
+              onRestoreActivity(e.id);
+            }}
+          >
+            ✚<span class="tooltiptext">Press to restore</span>
+          </button>
+
+          <button
+            alt="kill"
+            className="tooltip"
+            onClick={() => {
+              onFinalDelete(e.id);
+            }}
+          >
+            ❌<span class="tooltiptext">Press to kill for good</span>
+          </button>
+        </section>
       </li>
     </article>
   ));

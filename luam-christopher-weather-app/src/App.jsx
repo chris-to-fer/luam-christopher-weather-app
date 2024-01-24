@@ -2,7 +2,7 @@ import { uid } from "uid";
 import { useState, useEffect } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
-import Deleted from "./Deleted/Deleted";
+import Deleted from "./components/Deleted/Deleted";
 
 import List from "./components/List/List";
 import Form from "./components/Form/Form";
@@ -75,6 +75,12 @@ function App() {
     setActivities([...activities, ...deleted.filter((a) => a.id === id)]);
     setDeleted(deleted.filter((a) => a.id !== id));
   }
+
+  function handleFinalDelete(id) {
+    console.log("click");
+    setDeleted(deleted.filter((a) => a.id !== id));
+  }
+
   console.log("loc ", location);
   console.log("acti ", activities);
   console.log("deleted ", deleted);
@@ -133,7 +139,11 @@ function App() {
           onDeleteActivity={handleDeleteActivity}
         />
         <Form onAddActivity={handleAddActivity} />
-        <Deleted deleted={deleted} onRestoreActivity={handleRestoreActivity} />
+        <Deleted
+          onFinalDelete={handleFinalDelete}
+          deleted={deleted}
+          onRestoreActivity={handleRestoreActivity}
+        />
       </main>
     </>
   );
