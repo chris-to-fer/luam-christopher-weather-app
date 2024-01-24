@@ -53,10 +53,14 @@ function App() {
   const isGoodWeather = weather;
 
   useEffect(() => {
-    document.body.classList.toggle("good-weather", isGoodWeather);
-    document.body.classList.toggle("bad-weather", !isGoodWeather);
+    if (isGoodWeather === true) {
+      document.body.classList.remove("bad-weather");
+      document.body.classList.add("good-weather");
+    } else if (isGoodWeather === false) {
+      document.body.classList.remove("good-weather");
+      document.body.classList.add("bad-weather");
+    }
   }, [isGoodWeather]);
-
   const filteredActivities = activities.filter(
     (a) => a.isForGoodWeather === isGoodWeather
   );
@@ -84,6 +88,7 @@ function App() {
   console.log("loc ", location);
   console.log("acti ", activities);
   console.log("deleted ", deleted);
+  console.log("wea ", weather);
   return (
     <>
       <main>
