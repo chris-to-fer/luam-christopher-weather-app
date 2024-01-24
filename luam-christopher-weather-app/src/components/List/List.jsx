@@ -15,7 +15,7 @@ export default function List({
             onDeleteActivity(activity.id);
           }}
         >
-          X
+          🗑️
         </button>
       </li>
     </article>
