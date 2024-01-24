@@ -1,9 +1,0 @@
-.deleted-container {
-  padding-top: 24px;
-  display: flex;
-  flex-direction: column;
-
-  justify-content: space-between;
-  padding-inline-start: 0px;
-  gap: 15px;
-}
