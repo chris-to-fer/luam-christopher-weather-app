@@ -35,7 +35,7 @@ export default function Deleted({ deleted, onRestoreActivity }) {
         }}
         className="revealButton"
       >
-        {reveal ? "Hide history" : "Reveal history"}
+        {reveal ? "hide history" : "show history"}
       </button>
       {reveal && <section className="deleted-container">{items}</section>}
     </>
